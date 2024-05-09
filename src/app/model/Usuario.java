@@ -28,8 +28,6 @@ public class Usuario {
         return cpf;
     }
 
-    
-
     public void setId(int id) {
         this.id = id;
     }
@@ -47,19 +45,22 @@ public class Usuario {
         return "Usuario [id=" + id + ", nome=" + nome + ", cpf=" + cpf + "]";
     }
 
-    public boolean validaCpf() {
-        if (this.cpf.length() != 11) {
+    public static boolean validarCpfUsuario(String cpf) {
+        if (cpf.length() != 11) {
             return false;
         }
-    
-        for (int i = 0; i < this.cpf.length(); i++) {
-            if (!Character.isDigit(this.cpf.charAt(i))) {
+
+        for (int i = 0; i < cpf.length(); i++) {
+            if (!Character.isDigit(cpf.charAt(i))) {
                 return false;
             }
         }
 
         return true;
     }
-    
-    
+
+    public boolean validaCpf() {
+        return validarCpfUsuario(cpf);
+    }
+
 }
