@@ -8,7 +8,9 @@ public class Livro {
     private String autor;
     private Date data_publicacao;
 
-    public Livro(String titulo, String autor, Date data_publicacao,int id) {
+
+
+    public Livro(String titulo, String autor, Date data_publicacao, int id) {
         this.titulo = titulo;
         this.autor = autor;
         this.data_publicacao = data_publicacao;
@@ -21,8 +23,7 @@ public class Livro {
         this.data_publicacao = data_publicacao;
     }
 
-
-    public int getId() { 
+    public int getId() {
         return id;
     }
 
@@ -38,6 +39,22 @@ public class Livro {
         return data_publicacao;
     }
 
+    
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+
+    public void setData_publicacao(Date data_publicacao) {
+        this.data_publicacao = data_publicacao;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     @Override
     public String toString() {
@@ -45,5 +62,12 @@ public class Livro {
                 + "]";
     }
 
-    
+    public boolean validaData() {
+        Date date = new Date();
+        if (data_publicacao.getTime() > date.getTime()) {
+            return false;
+        }
+        return true;
+    }
+
 }
