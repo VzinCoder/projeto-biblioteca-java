@@ -2,7 +2,7 @@ package tests;
 
 import static org.junit.Assert.fail;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Optional;
 
 import org.junit.After;
@@ -25,7 +25,7 @@ public class EmprestimoRepositoryTest {
     private Livro livro;
     private Emprestimo emprestimo;
 
-    @SuppressWarnings("deprecation")
+
     @Before
     public void iniciarConexao() {
         try {
@@ -37,11 +37,11 @@ public class EmprestimoRepositoryTest {
             int idUsuario = usuarioRepository.adicionarUsuario(usuario);
             usuario.setId(idUsuario);
 
-            livro = new Livro("java", "paul deitel", new Date());
+            livro = new Livro("java", "paul deitel",LocalDate.now());
             int idLivro = livroRepository.adicionarLivro(livro);
             livro.setId(idLivro);
 
-            emprestimoRepository.emprestarLivro(usuario, livro, new Date(2025,1,1));
+            emprestimoRepository.emprestarLivro(usuario, livro, LocalDate.now().plusYears(2));
             Optional<Emprestimo> emprestimoEncontrado = emprestimoRepository.buscarEmprestimoPendente(usuario, livro);
             emprestimo = emprestimoEncontrado.get();
 

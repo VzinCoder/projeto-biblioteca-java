@@ -9,7 +9,6 @@ import static org.junit.Assert.fail;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,18 +25,17 @@ import app.repository.LivroRepository;
 public class LivroRepositoryTest {
 
     private LivroRepository livroRepository;
-    private Date dataInvalida;
+    private LocalDate dataInvalida;
     private Livro livro;
 
-    @SuppressWarnings("deprecation")
     @Before
     public void iniciarConexao() {
         try {
             livroRepository = new LivroRepository();
-            livro = new Livro("livro de java para burros", "advgdguidgfi", new Date());
+            livro = new Livro("livro de java para burros", "advgdguidgfi", LocalDate.now());
             int id = livroRepository.adicionarLivro(livro);
             livro.setId(id);
-            dataInvalida = new Date(LocalDate.now().getYear() + 2, 1, 1);
+            dataInvalida = LocalDate.now().plusYears(2);
         } catch (SQLException | AdicionarLivroException | ClassNotFoundException e) {
             fail(e.getMessage());
         }
@@ -62,7 +60,7 @@ public class LivroRepositoryTest {
 
         // removendo livro
         try {
-            int idLivro = livroRepository.adicionarLivro(new Livro("test", "test", new Date()));
+            int idLivro = livroRepository.adicionarLivro(new Livro("test", "test",LocalDate.now()));
             Optional<Livro> livroEncontrado = livroRepository.buscarLivroId(idLivro);
             assertTrue(livroEncontrado.isPresent());
             livroRepository.removerLivro(livroEncontrado.get().getId());
@@ -93,7 +91,7 @@ public class LivroRepositoryTest {
     public void buscarLivrosTituloTest() {
         try {
             // busca por livros
-            int id = livroRepository.adicionarLivro(new Livro("JAVA", livro.getAutor(), new Date()));
+            int id = livroRepository.adicionarLivro(new Livro("JAVA", livro.getAutor(), LocalDate.now()));
             List<Livro> livroEncontrados = livroRepository.buscarLivrosAutor(livro.getAutor());
             assertFalse(livroEncontrados.isEmpty());
             assertTrue(livroEncontrados.size() > 1);
@@ -111,7 +109,7 @@ public class LivroRepositoryTest {
     public void buscarLivrosPorAutorTest() {
         try {
             // busca por livros
-            int id = livroRepository.adicionarLivro(new Livro("JAVA", livro.getAutor(), new Date()));
+            int id = livroRepository.adicionarLivro(new Livro("JAVA", livro.getAutor(),LocalDate.now()));
             List<Livro> livroEncontrados = livroRepository.buscarLivrosAutor(livro.getAutor());
             assertFalse(livroEncontrados.isEmpty());
             assertTrue(livroEncontrados.size() > 1);
@@ -129,7 +127,7 @@ public class LivroRepositoryTest {
     public void buscarLivrosTituloAutorTest() {
         try {
             // busca por livros
-            int id = livroRepository.adicionarLivro(new Livro("JAVA", livro.getAutor(), new Date()));
+            int id = livroRepository.adicionarLivro(new Livro("JAVA", livro.getAutor(), LocalDate.now()));
             List<Livro> livroEncontrados = livroRepository.buscarLivrosTituloAutor("java", livro.getAutor());
             assertFalse(livroEncontrados.isEmpty());
             assertTrue(livroEncontrados.size() > 1);
@@ -156,7 +154,7 @@ public class LivroRepositoryTest {
     public void buscarLivrosTest() {
         try {
             // busca por livros
-            int id = livroRepository.adicionarLivro(new Livro("JAVA", livro.getAutor(), new Date()));
+            int id = livroRepository.adicionarLivro(new Livro("JAVA", livro.getAutor(), LocalDate.now()));
             List<Livro> livroEncontrados = livroRepository.buscarLivros();
             assertFalse(livroEncontrados.isEmpty());
             assertTrue(livroEncontrados.size() > 1);

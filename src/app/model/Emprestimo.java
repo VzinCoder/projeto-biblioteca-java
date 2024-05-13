@@ -1,21 +1,21 @@
 package app.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Emprestimo {
     private int id;
     private int idUsuario;
     private int idLivro;
-    private Date dataEmprestimo;
-    private Date dataDevolucaoPrevista;
-    private Date dataDevolucao;
+    private LocalDate dataEmprestimo;
+    private LocalDate dataDevolucaoPrevista;
+    private LocalDate dataDevolucao;
     private StatusEmprestimo status;
 
     public Emprestimo(){
     }
 
-    public Emprestimo(int id, int idUsuario, int idLivro, Date dataEmprestimo, Date dataDevolucaoPrevista,
-            Date dataDevolucao, StatusEmprestimo status) {
+    public Emprestimo(int id, int idUsuario, int idLivro, LocalDate dataEmprestimo, LocalDate dataDevolucaoPrevista,
+            LocalDate dataDevolucao, StatusEmprestimo status) {
         this.id = id;
         this.idUsuario = idUsuario;
         this.idLivro = idLivro;
@@ -25,8 +25,8 @@ public class Emprestimo {
         this.status = status;
     }
 
-    public Emprestimo(int idUsuario, int idLivro, Date dataEmprestimo, Date dataDevolucaoPrevista,
-            Date dataDevolucao, StatusEmprestimo status) {
+    public Emprestimo(int idUsuario, int idLivro, LocalDate dataEmprestimo, LocalDate dataDevolucaoPrevista,
+            LocalDate dataDevolucao, StatusEmprestimo status) {
         this.idUsuario = idUsuario;
         this.idLivro = idLivro;
         this.dataEmprestimo = dataEmprestimo;
@@ -39,56 +39,56 @@ public class Emprestimo {
         return id;
     }
 
-    public int getIdUsuario() {
-        return idUsuario;
-    }
-
-    public int getIdLivro() {
-        return idLivro;
-    }
-
-    public Date getDataEmprestimo() {
-        return dataEmprestimo;
-    }
-
-    public Date getDataDevolucaoPrevista() {
-        return dataDevolucaoPrevista;
-    }
-
-    public Date getDataDevolucao() {
-        return dataDevolucao;
-    }
-
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getIdUsuario() {
+        return idUsuario;
     }
 
     public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
     }
 
+    public int getIdLivro() {
+        return idLivro;
+    }
+
     public void setIdLivro(int idLivro) {
         this.idLivro = idLivro;
     }
 
-    public void setDataEmprestimo(Date dataEmprestimo) {
+    public LocalDate getDataEmprestimo() {
+        return dataEmprestimo;
+    }
+
+    public void setDataEmprestimo(LocalDate dataEmprestimo) {
         this.dataEmprestimo = dataEmprestimo;
     }
 
-    public void setDataDevolucaoPrevista(Date dataDevolucaoPrevista) {
+    public LocalDate getDataDevolucaoPrevista() {
+        return dataDevolucaoPrevista;
+    }
+
+    public void setDataDevolucaoPrevista(LocalDate dataDevolucaoPrevista) {
         this.dataDevolucaoPrevista = dataDevolucaoPrevista;
     }
 
-    public void setDataDevolucao(Date dataDevolucao) {
-        this.dataDevolucao = dataDevolucao;
+    public LocalDate getDataDevolucao() {
+        return dataDevolucao;
     }
 
-    public void setStatus(StatusEmprestimo status) {
-        this.status = status;
+    public void setDataDevolucao(LocalDate dataDevolucao) {
+        this.dataDevolucao = dataDevolucao;
     }
 
     public StatusEmprestimo getStatus() {
         return status;
+    }
+
+    public void setStatus(StatusEmprestimo status) {
+        this.status = status;
     }
 
     @Override

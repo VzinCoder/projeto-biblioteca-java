@@ -1,59 +1,60 @@
 package app.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Livro {
     private int id;
     private String titulo;
     private String autor;
-    private Date data_publicacao;
+    private LocalDate data_publicacao;
 
 
 
-    public Livro(String titulo, String autor, Date data_publicacao, int id) {
+    public Livro(String titulo, String autor, LocalDate data_publicacao, int id) {
         this.titulo = titulo;
         this.autor = autor;
         this.data_publicacao = data_publicacao;
         this.id = id;
     }
 
-    public Livro(String titulo, String autor, Date data_publicacao) {
+    public Livro(String titulo, String autor, LocalDate data_publicacao) {
         this.titulo = titulo;
         this.autor = autor;
         this.data_publicacao = data_publicacao;
     }
 
+
+
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitulo() {
         return titulo;
     }
 
-    public String getAutor() {
-        return autor;
-    }
-
-    public Date getData_publicacao() {
-        return data_publicacao;
-    }
-
-    
     public void setTitulo(String titulo) {
         this.titulo = titulo;
+    }
+
+    public String getAutor() {
+        return autor;
     }
 
     public void setAutor(String autor) {
         this.autor = autor;
     }
 
-    public void setData_publicacao(Date data_publicacao) {
-        this.data_publicacao = data_publicacao;
+    public LocalDate getData_publicacao() {
+        return data_publicacao;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setData_publicacao(LocalDate data_publicacao) {
+        this.data_publicacao = data_publicacao;
     }
 
     @Override
@@ -63,8 +64,8 @@ public class Livro {
     }
 
     public boolean validaData() {
-        Date date = new Date();
-        if (data_publicacao.getTime() > date.getTime()) {
+        LocalDate dataAtual = LocalDate.now();
+        if (data_publicacao.isAfter(dataAtual)) {
             return false;
         }
         return true;

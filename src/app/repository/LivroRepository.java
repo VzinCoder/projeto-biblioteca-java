@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -33,8 +34,7 @@ public class LivroRepository {
         PreparedStatement pst = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
         pst.setString(1, livro.getTitulo());
         pst.setString(2, livro.getAutor());
-        Date dataPublicacao = new Date(livro.getData_publicacao().getTime());
-        pst.setDate(3, dataPublicacao);
+        pst.setDate(3, Date.valueOf(livro.getData_publicacao()));
         pst.executeUpdate();
         ResultSet resultSet = pst.getGeneratedKeys();
         resultSet.next();
@@ -71,7 +71,7 @@ public class LivroRepository {
         PreparedStatement pst = conn.prepareStatement(sql);
         pst.setString(1, livro.getTitulo());
         pst.setString(2, livro.getAutor());
-        pst.setDate(3, new Date(livro.getData_publicacao().getTime()));
+        pst.setDate(3, Date.valueOf(livro.getData_publicacao()));
         pst.setInt(4, livro.getId());
         pst.executeUpdate();
     }
@@ -87,7 +87,7 @@ public class LivroRepository {
             int idLivro = resultSet.getInt("id");
             String tituloLivro = resultSet.getString("titulo");
             String autorLivro = resultSet.getString("autor");
-            Date dataPublicacaoLivro = resultSet.getDate("data_publicacao");
+            LocalDate dataPublicacaoLivro = resultSet.getDate("data_publicacao").toLocalDate();
             Livro livro = new Livro(tituloLivro, autorLivro, dataPublicacaoLivro, idLivro);
             livrosEncontrados.add(livro);
         }
@@ -106,7 +106,7 @@ public class LivroRepository {
             int idLivro = resultSet.getInt("id");
             String tituloLivro = resultSet.getString("titulo");
             String autorLivro = resultSet.getString("autor");
-            Date dataPublicacaoLivro = resultSet.getDate("data_publicacao");
+            LocalDate dataPublicacaoLivro = resultSet.getDate("data_publicacao").toLocalDate();
             Livro livro = new Livro(tituloLivro, autorLivro, dataPublicacaoLivro, idLivro);
             livrosEncontrados.add(livro);
         }
@@ -124,7 +124,7 @@ public class LivroRepository {
             int idLivro = resultSet.getInt("id");
             String tituloLivro = resultSet.getString("titulo");
             String autorLivro = resultSet.getString("autor");
-            Date dataPublicacaoLivro = resultSet.getDate("data_publicacao");
+            LocalDate dataPublicacaoLivro = resultSet.getDate("data_publicacao").toLocalDate();
             Livro livro = new Livro(tituloLivro, autorLivro, dataPublicacaoLivro, idLivro);
             livrosEncontrados.add(livro);
         }
@@ -144,7 +144,7 @@ public class LivroRepository {
             int idLivro = resultSet.getInt("id");
             String tituloLivro = resultSet.getString("titulo");
             String autorLivro = resultSet.getString("autor");
-            Date dataPublicacaoLivro = resultSet.getDate("data_publicacao");
+            LocalDate dataPublicacaoLivro = resultSet.getDate("data_publicacao").toLocalDate();
             Livro livro = new Livro(tituloLivro, autorLivro, dataPublicacaoLivro, idLivro);
             livrosEncontrados.add(livro);
         }
@@ -161,7 +161,7 @@ public class LivroRepository {
             int idLivro = resultSet.getInt("id");
             String nomeLivro = resultSet.getString("titulo");
             String autorLivro = resultSet.getString("autor");
-            Date dataPublicacaoLivro = resultSet.getDate("data_publicacao");
+            LocalDate dataPublicacaoLivro = resultSet.getDate("data_publicacao").toLocalDate();
             livroEncontrado = Optional.of(new Livro(nomeLivro, autorLivro, dataPublicacaoLivro, idLivro));
         }
         return livroEncontrado;
