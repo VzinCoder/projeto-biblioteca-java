@@ -33,8 +33,6 @@ public class EmprestimoRepository {
 
     public int emprestarLivro(Usuario usuario, Livro livro, LocalDate dataPrevistaDevolucao)
             throws SQLException, EmprestarLivroException, BuscarEmprestimoException {
-        Optional<Usuario> usuarioEncontrado = usuarioRepository.buscaUsuario(usuario.getCpf());
-        Optional<Livro> livroEncontrado = livroRepository.buscarLivroId(livro.getId());
         LocalDate dataAtual = LocalDate.now();
 
         Optional<Emprestimo> emprestimoEncontrado = buscarEmprestimoPendente(usuario, livro);
@@ -45,14 +43,6 @@ public class EmprestimoRepository {
 
         if (dataPrevistaDevolucao.isBefore(dataAtual)) {
             throw new EmprestarLivroException("Data prevista Invalida!");
-        }
-
-        if (usuarioEncontrado.isEmpty()) {
-            throw new EmprestarLivroException("Usuario invalido!");
-        }
-
-        if (livroEncontrado.isEmpty()) {
-            throw new EmprestarLivroException("Livro invalido!");
         }
 
         String sql = "Insert into emprestimos(id_usuario,id_livro,data_emprestimo,data_devolucao_prevista) values(?,?,?,?)";
@@ -103,7 +93,7 @@ public class EmprestimoRepository {
         PreparedStatement pst = conn.prepareStatement(sql);
         pst.setInt(1, usuario.getId());
         pst.setInt(2, livro.getId());
-        pst.setString(3,  "Pendente");
+        pst.setString(3, "Pendente");
         ResultSet resultSet = pst.executeQuery();
 
         if (resultSet.next()) {
@@ -115,7 +105,7 @@ public class EmprestimoRepository {
             emprestimo.setDataDevolucaoPrevista(resultSet.getDate("data_devolucao_prevista").toLocalDate());
             Date dataDevolucao = resultSet.getDate("data_devolucao");
 
-            if(dataDevolucao != null){
+            if (dataDevolucao != null) {
                 emprestimo.setDataDevolucao(dataDevolucao.toLocalDate());
             }
             emprestimo.setStatus(StatusEmprestimo.valueOf(resultSet.getString("status_emprestimo")));
@@ -148,11 +138,11 @@ public class EmprestimoRepository {
             emprestimo.setDataDevolucaoPrevista(resultSet.getDate("data_devolucao_prevista").toLocalDate());
             Date dataDevolucao = resultSet.getDate("data_devolucao");
 
-            if(dataDevolucao != null){
+            if (dataDevolucao != null) {
                 emprestimo.setDataDevolucao(dataDevolucao.toLocalDate());
             }
 
-            emprestimo.setStatus(StatusEmprestimo.valueOf(resultSet.getString("status_emprestimo")) );
+            emprestimo.setStatus(StatusEmprestimo.valueOf(resultSet.getString("status_emprestimo")));
             emprestimoEncontrados.add(emprestimo);
         }
 
@@ -182,10 +172,10 @@ public class EmprestimoRepository {
             emprestimo.setDataDevolucaoPrevista(resultSet.getDate("data_devolucao_prevista").toLocalDate());
             Date dataDevolucao = resultSet.getDate("data_devolucao");
 
-            if(dataDevolucao != null){
+            if (dataDevolucao != null) {
                 emprestimo.setDataDevolucao(dataDevolucao.toLocalDate());
             }
-            emprestimo.setStatus(StatusEmprestimo.valueOf(resultSet.getString("status_emprestimo")) );
+            emprestimo.setStatus(StatusEmprestimo.valueOf(resultSet.getString("status_emprestimo")));
             emprestimoEncontrados.add(emprestimo);
         }
 
